@@ -18,13 +18,13 @@ def bfs():
         cur = q.popleft()
         tmp_list = [(cur * 10) % tmp, (cur * 10 + 1) % tmp] # 0 or 1 붙였을 때 나머지 수
         for i in range(2):
-            # 기 등장한 '나머지' 수일 경우
+            # 기 등장한 나머지일 경우
             if v[tmp_list[i]]:
                 continue
 
-            # 첫 등장한 '나머지' 수일 경우
+            # 첫 등장한 나머지일 경우 => 현재 나머지의 부모 = 이전 나머지 / '0' or '1' 중 해당하는 문자 저장
             parent[tmp_list[i]] = cur
-            ans_dict[tmp_list[i]] = str(i) # 0 or 1 => 문자열로 저장 for 출력
+            ans_dict[tmp_list[i]] = str(i) # 0 or 1 => 문자로 저장 for 출력
             if tmp_list[i] == 0:
                 return
 
