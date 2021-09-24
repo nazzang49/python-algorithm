@@ -1,24 +1,15 @@
+import re
+n = int(input())
 
+def is_valid_pattern(pattern):
+    cp = re.compile('[A-F]?A+F+C+[A-F]?')
+    m = cp.match(pattern)
+    if m and len(m.group()) == len(pattern):
+        return True
+    return False
 
-
-
-
-
-
-
-# 15
-# AFC
-# AAFC
-# AAAFFCC
-# AAFCC
-# BAFC
-# QWEDFGHJMNB
-# DFAFCB
-# ABCDEFC
-# DADC
-# SDFGHJKLQWERTYU
-# AAAAAAAAAAAAABBBBBBBBBBBBBBCCCCCCCCCCCCCCCCCCDDDDDDDDDDDEEEEEEEEEEEEEEEFFFFFFFFC
-# AAAFFFFFBBBBCCCAAAFFFF
-# ABCDEFAAAFFFCCCABCDEF
-# AFCP
-# AAFFCPP
+for i in range(n):
+    if is_valid_pattern(input()):
+        print('Infected!')
+    else:
+        print('Good')
