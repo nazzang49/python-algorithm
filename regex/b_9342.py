@@ -13,8 +13,8 @@ n = int(input())
 
 def is_valid_pattern(pattern):
     # 문제의 조건 => 정규식으로 변환
-    cp = re.compile('[A-F]?A+F+C+[A-F]?')
-    m = cp.match(pattern)
+    p = re.compile('[A-F]?A+F+C+[A-F]?')
+    m = p.match(pattern)
     if m and len(m.group()) == len(pattern):
         return True
     return False
