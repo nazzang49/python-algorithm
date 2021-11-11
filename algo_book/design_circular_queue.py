@@ -29,10 +29,10 @@ class MyCircularQueue:
         return -1 if self.q[self.p2] is None else self.q[self.p2]
 
     def isEmpty(self) -> bool:
-        return self.p1 == self.p2 and self.q[self.p1] is None
+        return self.p1 == self.p2 and self.q[self.p1] is None # front and rear pointer moved
 
     def isFull(self) -> bool:
-        return self.p1 == self.p2 and self.q[self.p1] is not None
+        return self.p1 == self.p2 and self.q[self.p1] is not None # only rear pointer moved
 
 myCircularQueue = MyCircularQueue(3)
 myCircularQueue.enQueue(1)
