@@ -1,20 +1,15 @@
-import copy
-
 nums = [1,2,3]
 v = [False] * len(nums)
 ans = []
 def dfs(num_list):
     if len(nums) == len(num_list):
-        tmp_list = copy.deepcopy(num_list) # caution
-        ans.append(tmp_list)
+        ans.append(num_list)
         return
 
     for i in range(len(nums)):
         if not v[i]:
             v[i] = True
-            num_list.append(nums[i])
-            dfs(num_list)
-            num_list.pop()
+            dfs(num_list + [nums[i]]) # append is impossible unless using copy (e.g) num_list.copy()
             v[i] = False
 
 dfs([])
