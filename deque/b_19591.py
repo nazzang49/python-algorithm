@@ -23,7 +23,7 @@ ops.pop()
 if not ops:
     print(digits.popleft())
 else:
-    while ops:
+    while len(digits) > 1:
         left1 = digits[0]
         left2 = digits[1]
 
@@ -33,45 +33,39 @@ else:
         left_op = ops[0]
         right_op = ops[-1]
 
-        tmp_left_digit = eval(str(left1) + left_op + str(left2))
-        tmp_right_digit = eval(str(right1) + right_op + str(right2))
-
-        if left_op == '/':
-            tmp_left_digit = abs(left1) // abs(left2)
-            if left1 < 0 or left2 < 0:
-                tmp_left_digit = -tmp_left_digit
-
-        if right_op == '/':
-            tmp_right_digit = abs(right1) // abs(right2)
-            if right1 < 0 or right2 < 0:
-                tmp_right_digit = -tmp_right_digit
-
-        if (left_op == '*' or left_op == '/') and (right_op == '+' or right_op == '-'):
+        if left_op in ['*', '/'] and right_op in ['+', '-']:
             digits.popleft()
             digits.popleft()
             ops.popleft()
-            digits.insert(0, tmp_left_digit)
-        elif (right_op == '*' or right_op == '/') and (left_op == '+' or left_op == '-'):
+            if left_op == '*':
+                digits.appendleft(left1 * left2)
+            else:
+                digits.appendleft(int(left1 / left2))
+        elif right_op in ['*', '/'] and left_op in ['+', '-']:
             digits.pop()
             digits.pop()
             ops.pop()
-            digits.append(tmp_right_digit)
-        elif ((left_op == '*' or left_op == '/') and (right_op == '*' or right_op == '/'))\
-                or ((left_op == '+' or left_op == '-') and (right_op == '+' or right_op == '-')):
-            if tmp_left_digit > tmp_right_digit:
+            if right_op == '*':
+                digits.append(right1 * right2)
+            else:
+                digits.append(int(right1 / right2))
+        else:
+            if left_op in ['+', '-']:
+                tmp_left = left1 + left2 if left_op == '+' else left1 - left2
+                tmp_right = right1 + right2 if right_op == '+' else right1 - right2
+            else:
+                tmp_left = left1 * left2 if left_op == '*' else int(left1 / left2)
+                tmp_right = right1 * right2 if right_op == '*' else int(right1 / right2)
+
+            if tmp_left >= tmp_right:
                 digits.popleft()
                 digits.popleft()
                 ops.popleft()
-                digits.insert(0, tmp_left_digit)
-            elif tmp_right_digit > tmp_left_digit:
+                digits.appendleft(tmp_left)
+            else:
                 digits.pop()
                 digits.pop()
                 ops.pop()
-                digits.append(tmp_right_digit)
-            else:
-                digits.popleft()
-                digits.popleft()
-                ops.popleft()
-                digits.insert(0, tmp_left_digit)
+                digits.append(tmp_right)
 
     print(digits.popleft())
