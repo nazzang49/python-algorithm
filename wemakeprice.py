@@ -37,6 +37,7 @@ class Preprocessor:
         return rev_s[::-1]
 
 def solution(s):
+    # (!) 대소문자 변경
     s = Preprocessor.remove_whitespace(s, is_ignore_case=True)
 
     while True:
