@@ -2,8 +2,9 @@
 # 0 0 0 0
 # 0 0 0 0
 # 0 0 0 1
+import sys
 
-n, m, b = map(int, input().split())
+n, m, b = map(int, sys.stdin.readline().split())
 
 arr = []
 for _ in range(n):
@@ -11,42 +12,23 @@ for _ in range(n):
 
 # 오름차순 정렬
 arr = sorted(arr, reverse=False)
-answer = []
 
-def is_ok(h, b, arr):
-    global answer
-
+ans = sys.maxsize
+h = 0
+for i in range(257):
     time = 0
+    new_b = b
 
     for e in arr:
-        if e < h:
-            time += (h - e)
-            b -= (h - e)
+        if i >= e:
+            time += (i - e)
+            new_b -= (i - e)
         else:
-            time += (e - h) * 2
-            b += (e - h)
+            time += (e - i) * 2
+            new_b += (e - i)
 
-    # 정답 후보
-    if b >= 0:
-        answer.append([time, h])
-        return True
+    if new_b >= 0 and time <= ans:
+        ans = time
+        h = i
 
-    return False
-
-# 이분탐색
-l = min(arr)
-r = max(arr)
-
-while l <= r:
-    mid = (l + r) // 2
-
-    if is_ok(mid, b, arr):
-        l = mid + 1
-    else:
-        r = mid - 1
-
-print(sorted(answer, key=lambda x: (x[0], -x[1]))[0])
-
-
-
-
+print(ans, h)
